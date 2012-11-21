@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Windows.Phone.System.UserProfile;
@@ -117,7 +118,19 @@ namespace Wp8NotificationsDemo
 
         private void CreateIconicTile_Click(object sender, RoutedEventArgs e)
         {
-
+            var tileData = new IconicTileData()
+            {
+               Title = "iconic",
+               Count = 1,
+               WideContent1 = "[1st row of content]",
+               WideContent2 = "[2nd row of content]",
+               WideContent3 = "[3rd row of content]",
+               SmallIconImage = new Uri("/Assets/Tiles/iconic110.png", UriKind.Relative),
+               IconImage = new Uri("/Assets/Tiles/iconic202.png", UriKind.Relative),
+               BackgroundColor = Color.FromArgb(254, 0, 0, 255)
+            };
+            
+            ShellTile.Create(new Uri("/MainPage.xaml?tile=iconic", UriKind.Relative), tileData, true);
         }
 
         // Sample code for building a localized ApplicationBar
