@@ -92,6 +92,34 @@ namespace Wp8NotificationsDemo
 
         }
 
+        private void CreateCycleTile_Click(object sender, RoutedEventArgs e)
+        {
+            var cycleTile = new CycleTileData()
+            {
+                Title = "cycle tile",
+                Count = 6,
+                SmallBackgroundImage =
+                    new Uri("/Assets/Tiles/george-151.png", UriKind.Relative),
+                CycleImages = new Uri[]
+                                {
+                                    new Uri("/Assets/Tiles/cycle01.jpg",
+                                            UriKind.Relative),
+                                    new Uri("/Assets/Tiles/cycle02.jpg",
+                                            UriKind.Relative),
+                                    new Uri("/Assets/Tiles/cycle03.jpg",
+                                            UriKind.Relative),
+                                    new Uri("/Assets/Tiles/cycle04.jpg",
+                                            UriKind.Relative),
+                                }
+            };
+            ShellTile.Create(new Uri("/MainPage.xaml?tile=cycle", UriKind.Relative), cycleTile, true);
+        }
+
+        private void CreateIconicTile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{
