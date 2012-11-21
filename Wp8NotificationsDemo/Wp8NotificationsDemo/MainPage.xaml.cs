@@ -38,7 +38,7 @@ namespace Wp8NotificationsDemo
 
                 if (isProvider)
                 {
-                    var uri = new Uri("ms-appdata:///Local/Assets/Tiles/kramer.jpg", UriKind.Absolute);
+                    var uri = new Uri("ms-appx:///Assets/Lock/kramer.jpg", UriKind.Absolute);
                     LockScreen.SetImageUri(uri);
                 }
                 else
