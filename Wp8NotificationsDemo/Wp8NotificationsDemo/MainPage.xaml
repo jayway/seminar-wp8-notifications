@@ -48,9 +48,16 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+                    </Style>
+                </StackPanel.Resources>
                 <Button x:Name="OpenLockSettings" Content="Open lock screen settings" Click="OpenLockSettings_Click"/>
-                <Button x:Name="UpdateLockScreen" Content="Update lock screen" Click="UpdateLockScreen_Click"/>
-                <Button x:Name="CreateFlipTile" Content="Create FlipTile"/>
+                <Button x:Name="UpdateLockScreenImage" Content="Update lock screen image" Click="UpdateLockScreenImage_Click"/>
+                <Button x:Name="UpdateLockScreenCount" Content="Update lock screen count" Click="UpdateLockScreenCount_Click"/>
+                <Button x:Name="UpdateLockScreenText" Content="Update lock screen text" Click="UpdateLockScreenText_Click"/>
+                <Button x:Name="CreateFlipTile" Content="Create FlipTile" Click="CreateFlipTile_Click"/>
                 <Button x:Name="CreateCycleTile" Content="Create CycleTile"/>
                 <Button x:Name="CreateIconicTile" Content="Create IconicTile"/>
                 <Image x:Name="Image"/>

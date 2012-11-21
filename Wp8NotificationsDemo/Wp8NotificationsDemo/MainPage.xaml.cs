@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Windows.Phone.System.UserProfile;
-using Wp8NotificationsDemo.Resources;
 
 namespace Wp8NotificationsDemo
 {
@@ -29,7 +23,7 @@ namespace Wp8NotificationsDemo
             await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-lock:"));
         }
 
-        private async void UpdateLockScreen_Click(object sender, RoutedEventArgs e)
+        private async void UpdateLockScreenImage_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -44,7 +38,6 @@ namespace Wp8NotificationsDemo
                 if (isProvider)
                 {
                     var uri = new Uri("ms-appdata:///Local/Assets/Tiles/kramer.jpg", UriKind.Absolute);
-
                     LockScreen.SetImageUri(uri);
                 }
                 else
@@ -56,6 +49,47 @@ namespace Wp8NotificationsDemo
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
+        }
+
+        private void UpdateLockScreenCount_Click(object sender, RoutedEventArgs e)
+        {
+            var tile = ShellTile.ActiveTiles.First();
+            var data = new FlipTileData()
+            {
+                Count = new Random(DateTime.Now.Millisecond).Next(100),
+            };
+            tile.Update(data);
+        }
+
+        private void UpdateLockScreenText_Click(object sender, RoutedEventArgs e)
+        {
+            var tile = ShellTile.ActiveTiles.First();
+            var data = new FlipTileData()
+            {
+                BackContent = "back content",
+                WideBackContent = "wide back content"
+            };
+            tile.Update(data);
+        }
+
+        private void CreateFlipTile_Click(object sender, RoutedEventArgs e)
+        {
+            var tileData = new FlipTileData()
+                               {
+                                   Title = "flip tile",
+                                   BackTitle = "flip back",
+                                   BackContent = "flip content",
+                                   WideBackContent = "flip wide content",
+                                   Count = 5,
+                                   SmallBackgroundImage = new Uri("/Assets/Tiles/george-151.png", UriKind.Relative),
+                                   BackgroundImage = new Uri("/Assets/Tiles/george-336.png", UriKind.Relative),
+                                   BackBackgroundImage = new Uri("", UriKind.Relative),
+                                   WideBackgroundImage = new Uri("/Assets/Tiles/george-wide.png", UriKind.Relative),
+                                   WideBackBackgroundImage = new Uri("", UriKind.Relative),
+                               };
+
+            ShellTile.Create(new Uri("/MainPage.xaml?tile=flip", UriKind.Relative), tileData, true);
+
         }
 
         // Sample code for building a localized ApplicationBar
