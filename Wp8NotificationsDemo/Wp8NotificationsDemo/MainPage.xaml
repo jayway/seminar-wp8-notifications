@@ -53,6 +53,7 @@
                 <Button x:Name="CreateFlipTile" Content="Create FlipTile"/>
                 <Button x:Name="CreateCycleTile" Content="Create CycleTile"/>
                 <Button x:Name="CreateIconicTile" Content="Create IconicTile"/>
+                <Image x:Name="Image"/>
             </StackPanel>
 
         </Grid>

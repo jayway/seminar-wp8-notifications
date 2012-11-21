@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Windows.Phone.System.UserProfile;
 using Wp8NotificationsDemo.Resources;
 
 namespace Wp8NotificationsDemo
@@ -20,8 +22,6 @@ namespace Wp8NotificationsDemo
 
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
-
-            
         }
 
         private async void OpenLockSettings_Click(object sender, RoutedEventArgs e)
@@ -33,41 +33,26 @@ namespace Wp8NotificationsDemo
         {
             try
             {
-                var isProvider = Windows.Phone.System.UserProfile.LockScreenManager.IsProvidedByCurrentApplication;
+                var isProvider = LockScreenManager.IsProvidedByCurrentApplication;
                 if (!isProvider)
                 {
-                    // If you're not the provider, this call will prompt the user for permission.
-                    // Calling RequestAccessAsync from a background agent is not allowed.
-                    var op = await Windows.Phone.System.UserProfile.LockScreenManager.RequestAccessAsync();
+                    var op = await LockScreenManager.RequestAccessAsync();
 
-                    // Only do further work if the access was granted.
-                    isProvider = op == Windows.Phone.System.UserProfile.LockScreenRequestResult.Granted;
+                    isProvider = op == LockScreenRequestResult.Granted;
                 }
 
                 if (isProvider)
                 {
-                    // At this stage, the app is the active lock screen background provider.
+                    var uri = new Uri("ms-appdata:///Local/Assets/Tiles/kramer.jpg", UriKind.Absolute);
 
-                    // The following code example shows the new URI schema.
-                    // ms-appdata points to the root of the local app data folder.
-                    // ms-appx points to the Local app install folder, to reference resources bundled in the XAP package.
-                    var isAppResource = true;
-                    var schema = isAppResource ? "ms-appx:///" : "ms-appdata:///Local/";
-                    var uri = new Uri(schema + "Assets/Tiles/kramer-1280x768.jpg", UriKind.Absolute);
-
-                    // Set the lock screen background image.
-                    Windows.Phone.System.UserProfile.LockScreen.SetImageUri(uri);
-
-                    // Get the URI of the lock screen background image.
-                    Uri currentImage = Windows.Phone.System.UserProfile.LockScreen.GetImageUri();
-                    System.Diagnostics.Debug.WriteLine("The new lock screen background image is set to {0}", currentImage.ToString());
+                    LockScreen.SetImageUri(uri);
                 }
                 else
                 {
                     MessageBox.Show("You said no, so I can't update your background.");
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
